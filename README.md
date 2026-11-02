@@ -10,7 +10,7 @@
 | `core\Contracts.cs` | 老師 | 學生可用的介面與資料：`IBrain`、`SelfInfo`、`Neighbor`、`World`、`Obstacle`、`RelationTable`、`Steering` |
 | `core\Arena.cs` | 老師 | 競技場：運動、碰撞擊殺、食物、五芒星、縮圈、防錯、顏色 |
 | `core\Roster.cs` | 老師 | 用反射找出所有 `Boid_` class（名稱以 `Boid_template` 開頭的不參賽） |
-| `host\host_template.cs` | 老師 | GH 主程式樣板；`host\host_script.cs` 是產生檔，不手改、不提交 |
+| `host\GameHost.cs`、`host\host_template.cs` | 老師 | `GameHost` 包住播放、排程與畫面（`Setup`／`Run`／`Draw`）；`host_template.cs` 是貼進 GH 的薄樣板，只剩 `#load` 與三行呼叫。`host\host_script.cs` 是 `gen_host.py` 產生的完整腳本，不手改、不提交 |
 | `students\boid_{名字}.cs` | 學生 | 自己的 `public class Boid_{名字} : IBrain` |
 | `students\boid_template.cs` | 老師 | 學生範本：列出所有可用資料與函式，不參賽 |
 | `docs\AI_PROMPT.md` | 學生 | 貼給網頁 GPT／Gemini 的提示 |
@@ -54,7 +54,7 @@
 
 1. 複製 `students\boid_template.cs` 為 `students\boid_{名字}.cs`，class 改名 `Boid_{名字}`、`Name` 改成自己的。
 2. 只改這個檔，**不要動 `core\`、`host\`**。
-3. 執行 `python tools\gen_host.py`，把 `host\host_script.cs` 整份貼進 GH 的 C# Script 元件，按編輯器綠色執行鈕（GH 不會自動重新編譯）。
+3. 執行 `python tools\gen_host.py`，把 `host\host_script.cs`（約 60 行：`#load` 清單＋薄樣板）整份貼進 GH 的 C# Script 元件，按編輯器綠色執行鈕（GH 不會自動重新編譯）。
 4. 確認沒有編譯錯誤、`info` 裡自己隊伍的狀態是「正常」再提交。有 .NET SDK 的話，提交前跑 `python tools\gen_host.py --check`。
 
 ## GH 元件
@@ -71,7 +71,7 @@
 | starRate | 五芒星每步機率 0～1，預設 0.004；0 = 不出現 |
 
 新增輸入：GH 畫面放大到約 400%，元件輸入端出現小圓點，點最下面的新增，右鍵改名。
-畫面調整在 `host_template.cs` 開頭：`BoidScale`（Boid 整體縮放，預設 1.0）、`BoidLength`、`OutlineThickness`、`ScheduleMs`。
+畫面調整在 `host\GameHost.cs` 開頭：`BoidScale`（Boid 整體縮放，預設 1.0）、`BoidLength`、`OutlineThickness`、`ScheduleMs`。
 
 ## 老師怎麼合併
 
