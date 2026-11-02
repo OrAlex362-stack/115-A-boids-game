@@ -176,7 +176,7 @@ def main():
     if "--check" in sys.argv:
         students, report = check_students(students)
     folders = ["core"] + (["examples"] if "--examples" in sys.argv else [])
-    files = [p for f in folders for p in sorted((ROOT / f).glob("*.cs"))] + students
+    files = [p for f in folders for p in sorted((ROOT / f).glob("*.cs"))] + [ROOT / "host" / "GameHost.cs"] + students
     lines = ['#load "{}"'.format(p) for p in files]
     for name, why in report:
         lines.append("// 檢查 {}：{}".format(name, why))
