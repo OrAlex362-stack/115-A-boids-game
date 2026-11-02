@@ -1,0 +1,6 @@
+host/host_script.cs
+**/bin/
+**/obj/
+.vs/
+tools/check/students.g.props
+tools/.check_cache.json
